@@ -4,6 +4,7 @@ leftwristX = 0;
 leftwristY = 0;
 rightwristX = 0;
 rightwristY = 0;
+scoreleftwrist = 0;
 
 function preload()
 {
@@ -25,6 +26,22 @@ function setup()
 function draw()
 {
     image(video, 0, 0, 600, 500);
+
+    fill("#ff0000");
+    stroke("#ff0000");
+
+    if(scoreleftwrist > 0.2)
+    {
+        circle(leftwristX, leftwristY, 20);
+
+        play1 = song.isPlaying();
+        if(play1 == true)
+        {
+            song2.stop();
+            song1.stop();
+            song1.play();
+        }
+    }
 }
 
 function modelLoaded()
@@ -45,5 +62,7 @@ function gotPoses(results)
         rightwristX = results[0].pose.rightWrist.x;
         rightwristY = results[0].pose.rightWrist.y;
         console.log("rightwristX = " + rightwristX + "rightwristY = " + rightwristY);
+
+        scoreleftwrist = results[0].pose.keypoints[9].score;
     }
 }
