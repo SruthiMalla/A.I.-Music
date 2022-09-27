@@ -5,6 +5,7 @@ leftwristY = 0;
 rightwristX = 0;
 rightwristY = 0;
 scoreleftwrist = 0;
+scorerightwrist = 0;
 
 function preload()
 {
@@ -34,12 +35,25 @@ function draw()
     {
         circle(leftwristX, leftwristY, 20);
 
-        play1 = song.isPlaying();
+        play1 = song2.isPlaying();
         if(play1 == true)
         {
             song2.stop();
             song1.stop();
             song1.play();
+        }
+    }
+
+    if(scorerightwrist > 0.2)
+    {
+        circle(rightwristX, rightwristY, 20);
+
+        play2 = song1.isPlaying();
+        if(play2 == true)
+        {
+            song2.stop();
+            song1.stop();
+            song2.play();
         }
     }
 }
@@ -64,5 +78,6 @@ function gotPoses(results)
         console.log("rightwristX = " + rightwristX + "rightwristY = " + rightwristY);
 
         scoreleftwrist = results[0].pose.keypoints[9].score;
+        scorerightwrist = results[0].pose.keypoints[10].score;
     }
 }
